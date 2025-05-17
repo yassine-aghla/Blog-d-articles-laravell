@@ -15,11 +15,22 @@
         <tr>
         <th>Id</th>
         <th>name</th>
+        <th>statut</th>
         </tr>
       @foreach ($categorie as $item)
       <tr>
           <td>{{$item->id}}</td>
           <td>{{$item->name}}</td>
+          <td>
+            <a href="{{route('categories.edit',$item)}}">modifier</a>
+            <form action="{{route('categories.destroy',$item)}}" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit">Supprimer</button>
+                 
+            </form>
+          </td>
       </tr>
         @endforeach
     </table>    

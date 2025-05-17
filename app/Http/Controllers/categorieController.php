@@ -19,7 +19,7 @@ class categorieController extends Controller
 
      public function store(Request $request){
         
-           $validatedData= $request->validate(['name'=>'required|string',]);
+      $validatedData= $request->validate(['name'=>'required|string',]);
       Category::create($validatedData);
 
     return redirect()->route('categories.index')
@@ -27,11 +27,19 @@ class categorieController extends Controller
      }
 
      public function edit(Request $request){
-         $categorie=Category::all();
-        return view('categories.edit',compact('categorie'));
+         $category=Category::all();
+        return view('categories.edit',compact('category'));
      }
 
-     public function update(Request $request,Category $categorie){
-        
+     public function update(Request $request,Category $category){
+            $validatedData= $request->validate(['name'=>'required|string',]);
+            $category->update($validatedData);
+              return redirect()->route('categories.index')->with('success', 'Catégorie modifiee avec succès!');
+     }
+
+     public function destroy(Category $category){
+      $category->delete();
+
+      return redirect()->route('categories.index')->with('succes','categorie supprime avec succes');
      }
 }
