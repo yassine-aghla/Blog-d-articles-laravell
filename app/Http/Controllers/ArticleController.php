@@ -30,6 +30,33 @@ class ArticleController extends Controller
         ]);
         
        Article::create($validateData);
-       return redirect()->route('Article.index')->with("succes","article creer avec succes");
+       return redirect()->route('Articles.index')->with("succes","article creer avec succes");
     }
+
+    public function edit(Article $article){
+         $categories=Category::all();
+          return view('Articles.edit',compact('article','categories'));
+    }
+
+    public function update(Request $request,Article $article){
+            $validateData=$request->validate([
+            'titre'=>'required|string',
+            'description'=>'required|string',
+            'content'=>'required|string',
+            'categorie_id'=>'required|exists:categories,id',
+        ]);
+
+        $article->update($validateData);
+        return redirect(route('Articles.index'));
+    }
+
+    public function destroy(Article $article){
+        $article->delete();
+        return view('Articles.index');
+    }
+
+    public function show(Article $article)
+{
+    return view('Articles.show');
+}
 }
