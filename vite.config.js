@@ -8,4 +8,13 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-});
+    
+  server: {
+    port: 5173,
+    strictPort: true, // N'essayera pas d'autres ports
+    hmr: {
+      port: 5173 // Important pour le Hot Module Replacement
+    }
+  }
+})
+;
